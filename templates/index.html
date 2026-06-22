@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV 침입 감지 대시보드</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .alert {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .alert:last-child {
+            border-bottom: none;
+        }
+
+        .alert img {
+            width: 320px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .info {
+            flex: 1;
+        }
+
+        .time {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .count {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            color: gray;
+            font-size: 18px;
+            padding: 50px;
+        }
+
+        .refresh {
+            display: block;
+            margin: 0 auto 20px auto;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: #1976d2;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .refresh:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🚨 CCTV 침입 감지 대시보드</h1>
+
+    <button class="refresh" onclick="location.reload()">
+        새로고침
+    </button>
+
+    <div class="card">
+
+        <div class="count">
+            총 침입 기록: {{ alerts|length }}건
+        </div>
+
+        {% if alerts %}
+
+            {% for alert in alerts|reverse %}
+
+            <div class="alert">
+
+                <img src="/{{ alert.snapshot }}" alt="snapshot">
+
+                <div class="info">
+                    <div class="time">
+                        {{ alert.time }}
+                    </div>
+
+                    <p>
+                        침입자가 감지되었습니다.
+                    </p>
+
+                    <p>
+                        저장 위치:
+                        {{ alert.snapshot }}
+                    </p>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                현재 침입 기록이 없습니다.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

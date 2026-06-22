@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# YOLO / model weights
+*.pt
+
+# Videos
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Runtime outputs
+runs/
+snapshots/
+alerts.json
+zone.json
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
